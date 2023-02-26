@@ -14,11 +14,16 @@
 # CMD /script
 
 FROM debian:10
-RUN apt-get update && apt-get install -y nginx
+RUN apt-get update && apt-get install -y nginx vim 
+RUN mkdir /etc/nginx/ssl
+
 COPY nginx.conf /etc/nginx/sites-available/default
 COPY index.html /var/www/html/index.nginx-debian.html
+COPY ./stuf.crt /
+COPY ./stuf.key  /
 EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
+# CMD ["mkdir", "/etc/nginx/certificate "]
 
 
 # These commands copy your files into the specified directory in the image

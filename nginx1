@@ -17,20 +17,20 @@
 ##
 
 # Default server configuration
-
-# server {
-#         listen 88 default_server;
-#         listen [::]:88 default_server;
-#         server_name _;
-#         return 301 https://$host$request_uri;
+#
+server {
+        listen 88 default_server;
+        listen [::]:88 default_server;
+        server_name _;
+        return 301 https://$host$request_uri;
 # }
 
-server{
-        listen 443 ssl default_server;
-        listen [::]:443 ssl default_server;
-        ssl_certificate /stuf.crt;
-        ssl_certificate_key /stuf.key;
-        ssl_protocols TLSv1.2; 
+# server{
+#         listen 443 ssl default_server;
+#         listen [::]:443 ssl default_server;
+#         ssl_certificate /etc/nginx/ssl/nginx-certificate.crt;
+#         ssl_certificate_key /etc/nginx/ssl/nginx.key;
+        # ssl_protocols TLSv1.2;
         # SSL configuration
         #
         # listen 443 ssl default_server;
