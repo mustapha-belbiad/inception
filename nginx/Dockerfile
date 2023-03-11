@@ -14,11 +14,12 @@
 # CMD /script
 
 FROM debian:10
-RUN apt-get update && apt-get install -y nginx vim 
+RUN apt-get update && apt-get install -y nginx
 RUN mkdir /etc/nginx/ssl
 
 COPY nginx.conf /etc/nginx/sites-available/default
-COPY index.html /var/www/html/index.nginx-debian.html
+COPY hello.php /var/www/html/index.nginx-debian.html
+# COPY index.html /var/www/html/index.nginx-debian.html
 COPY ./stuf.crt /
 COPY ./stuf.key  /
 EXPOSE 443
