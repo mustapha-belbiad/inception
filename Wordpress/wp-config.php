@@ -23,10 +23,10 @@
 define( 'DB_NAME', 'hola' );
 
 /** Database username */
-define( 'DB_USER', 'hola' );
+define( 'DB_USER', 'hola1' );
 
 /** Database password */
-define( 'DB_PASSWORD', 'pass' );
+define( 'DB_PASSWORD', '147' );
 
 /** Database hostname */
 define( 'DB_HOST', 'mariadb' );

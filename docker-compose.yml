@@ -2,14 +2,14 @@ version: '3'
 
 networks:
   inception:
-    name : inception
+    driver: bridge
 
 volumes:
   wp_data:
     name: wordpress
     driver: local
     driver_opts:
-      device: /workspaces/inception/wp_data
+      device: /home/mbelbiad/Downloads/inception-master/wp_data
       o: bind
       type: none
   
@@ -17,45 +17,47 @@ volumes:
     name: mariadb
     driver: local
     driver_opts:
-      device: /workspaces/inception/db_data
+      device: /home/mbelbiad/Downloads/inception-master/db_data
       o: bind
       type: none
  
 services:
 
   mariadb:
-    build: mariadb/.
-    ports: 
-      - "3306:3306"
+    build: ./mariadb
+    # ports: 
+    #   - "3306:3306"
     environment:
       DB_DATABASE: hola
       DB_USER: hola
       DB_PASSWORD: pass
       DB_ROOT_PASSWORD: pass
     volumes:
-      - ./mysql:/var/lib/mysql
+      - db_data:/var/lib/mysql
     networks:
       - inception
     # restart : always
   
   wordpress:
-    build: Wordpress/.
-    depends_on:
-      - mariadb
+    build: ./Wordpress
+    # depends_on:
+    #   - mariadb
+    # enviroment:
+    #   - WORDPRESS_DB_PASSWORD=147
     volumes:
       - wp_data:/var/www/html
     networks:
       - inception
     # restart : always
-  
   nginx:
-    build: nginx/.
+    build: ./nginx
     ports: 
       - "443:443"
     depends_on:
       - wordpress
     volumes:
-      - db_data:/var/www/html
+      - wp_data:/var/www/html
     networks:
       - inception
+  
     # restart: always

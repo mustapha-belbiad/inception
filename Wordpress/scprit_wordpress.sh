@@ -1,16 +1,17 @@
-#!/bin/bash
 wget https://wordpress.org/latest.tar.gz
 tar xvf latest.tar.gz
 
 cd wordpress
 chown -R www-data:www-data .
 chmod -R 755 .
-mv /wordpress /var/www/html/
-#cd /var/www/html/wordpress
-#ln -s /etc/nginx/sites-available/wordpress.conf /etc/nginx/sites-enabled
-cp wp-config-sample.php wp-config.php
-# cp wp-config-sample.php wp-config.php
-service php7.3-fpm start
-rm /run/php/php7.3-fpm.sock
-# /usr/sbin/php-fpm7.3 -F
 
+# rm wp-config-sample.php
+# mv /wp-config.php /var/www/html/wordpress
+
+cp -R * ../
+cd ..
+rm -rf wordpress
+# chmod +x *
+mv /var/www/html/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+service php7.3-fpm start
+service php7.3-fpm stop

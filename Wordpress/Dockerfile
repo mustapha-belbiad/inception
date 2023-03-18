@@ -1,20 +1,30 @@
-FROM debian:10
+FROM debian:buster
 
-RUN apt-get update && \
-apt-get install -y wget && \
-apt-get install -y  php7.3-fpm php-cli php-fpm php-mysql php-json php-opcache php-mbstring php-xml php-gd php-curl curl
+RUN apt-get update && apt-get install wget -y \
+    curl \
+    php7.3 \
+    php7.3-fpm \
+    unzip \
+    php7.3-mysql \
+    php7.3-phar
 
 WORKDIR /var/www/html
+COPY www.conf /var/www/html
+COPY scprit_wordpress.sh /var/www/html
+COPY /wp-config.php /var/www/html
+# RUN chmod +x wp-config.php
 
-COPY scprit_wordpress.sh /
+RUN chmod +x /var/www/html/scprit_wordpress.sh
 
-RUN chmod +x /scprit_wordpress.sh
+# RUN cd / && ./scprit_wordpress.sh
 
-RUN cd / && ./scprit_wordpress.sh
+# CMD [ "php-fpm7.3", "-F" ]
 
-COPY wp-config.php /var/www/html/wordpress/wp-config.php
+RUN /var/www/html/scprit_wordpress.sh
 
-CMD [ "php-fpm7.3", "-F" ]
+
+
+CMD ["/usr/sbin/php-fpm7.3", "-F", "-R"]
 
 # apt-get install php-fpm
 
